@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+
+
+<h1>Customers</h1>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <div class="input-group mb-3">
+
+          <input type="text" class="form-control" id="searchInputCustomers" placeholder="Customer's Last Name" aria-label="Customer's Last Name" aria-describedby="search-button">
+          <div class="resultBox">
+            <!-- here list are inserted from javascript -->
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col col-md-3">
+      <a class="btn btn-primary" style="float: right" href="/add/">Add a Customer</a></p>
+    </div>
+  </div>
+</div>
+
+
+<ul style="column-count: 4">
+  {% for customer in customers %}
+  <li><a href="/{{ customer.id }}/">{{ customer.fullName }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
