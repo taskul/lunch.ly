@@ -7,7 +7,7 @@
 
 <ul style="column-count: 4">
   {% for customer in customers %}
-  <li><a href="/{{ customer.id }}/">{{ customer.fullName }} {{ customer.numReservations }}</a></li>
+  <li><a href="/{{ customer[0].id }}/">{{ customer[0].fullName }}</a> #{{ customer[1] }}</li>
   {% endfor %}
 </ul>
 

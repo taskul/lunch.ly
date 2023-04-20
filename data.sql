@@ -1,7 +1,7 @@
-\c lunchly 
+\c lunchly_test
 
-DROP TABLE IF EXISTS reservations;
-DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS reservations CASCADE;
+DROP TABLE IF EXISTS customers CASCADE;
 
 CREATE TABLE customers (
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -13,7 +13,7 @@ CREATE TABLE customers (
 
 CREATE TABLE reservations (
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    customer_id integer NOT NULL REFERENCES customers,
+    customer_id integer NOT NULL REFERENCES customers ON DELETE CASCADE,
     start_at timestamp without time zone NOT NULL,
     num_guests integer NOT NULL,
     notes text DEFAULT '' NOT NULL,

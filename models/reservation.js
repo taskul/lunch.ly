@@ -8,7 +8,7 @@ const db = require("../db");
 /** A reservation for a party */
 
 class Reservation {
-  constructor({id, customerId, numGuests, startAt, notes}) {
+  constructor({ id, customerId, numGuests, startAt, notes }) {
     this.id = id;
     this.customerId = customerId;
     this.numGuests = numGuests;
@@ -26,14 +26,15 @@ class Reservation {
 
   static async getReservationsForCustomer(customerId) {
     const results = await db.query(
-          `SELECT id, 
+      `SELECT id, 
            customer_id AS "customerId", 
            num_guests AS "numGuests", 
            start_at AS "startAt", 
            notes AS "notes"
          FROM reservations 
-         WHERE customer_id = $1`,
-        [customerId]
+         WHERE customer_id = $1
+         ORDER BY start_at DESC`,
+      [customerId]
     );
 
     return results.rows.map(row => new Reservation(row));
@@ -47,7 +48,7 @@ class Reservation {
         VALUES ($1, $2, $3, $4) 
         RETURNING id`,
         [this.customerId, this.startAt, this.numGuests, this.notes]
-        );
+      );
       this.id = result.rows[0].id;
     } else {
       // save when we are editing an existing reservation

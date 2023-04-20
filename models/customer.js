@@ -13,7 +13,6 @@ class Customer {
     this.phone = phone;
     this.notes = notes;
     this.fullName = `${this.lastName} ${this.firstName}`;
-    this.numReservations = 0;
   }
 
   /** find all customers. */
@@ -65,8 +64,8 @@ class Customer {
       FROM customers
       WHERE last_name ILIKE $1
       ORDER BY last_name`,
-      [lastName+"%"]
-      );
+      [lastName + "%"]
+    );
     return results.rows.map(r => new Customer(r));
   }
 
@@ -83,7 +82,7 @@ class Customer {
       GROUP BY customers.id 
       ORDER BY reservation_count DESC LIMIT 10;
       `);
-    return results.rows.map(r => {new Customer(r), r.reservation_count})
+    return results.rows.map(r => [new Customer(r), r.reservation_count])
   }
 
 
